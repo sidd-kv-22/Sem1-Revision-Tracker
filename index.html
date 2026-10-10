@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Semester 1 Revision Tracker</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#04070d;--gr:rgba(90,160,255,.07);--gr2:rgba(90,160,255,.15);--card:#09111d;--tx:#e4edff;--mu:#7f93b3;--bd:#1c2f4d;--ac:#5aa0ff;--hot:#ff7a45;--ck:#04070d;--a0:#a291ff;--a1:#2fd0e0;--a2:#ffb03a;--a3:#4fe08a;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background-color:var(--bg);color:var(--tx);font:15px/1.55 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+button{font:inherit;color:inherit}
+button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+[data-s="0"]{--a:var(--a0)}[data-s="1"]{--a:var(--a1)}[data-s="2"]{--a:var(--a2)}[data-s="3"]{--a:var(--a3)}
+.w{max-width:1040px;margin:0 auto}
+.mu{color:var(--mu);font-size:14px}
+.top{display:flex;gap:20px;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;padding:22px 16px 16px}
+h1,h2,.fn{font-family:"Bricolage Grotesque","IBM Plex Sans",system-ui,sans-serif}
+h1{font-size:clamp(26px,5vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin:0 0 4px}
+.bar{height:6px;background:var(--bd);border-radius:6px;overflow:hidden;margin-top:10px;width:min(360px,100%)}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ac),#b5d5ff,var(--ac));background-size:200% 100%;animation:sh 3s linear infinite;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.fat{margin-left:auto}
+.fn{font-size:clamp(46px,9vw,68px);font-weight:800;line-height:1;letter-spacing:-.03em}
+.fat.hot .fn{color:var(--hot)}
+.fl{color:var(--mu);font-size:13px;margin-bottom:6px}
+.dt{font:inherit;font-size:13px;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:3px 8px}
+.lay{display:grid;gap:16px;padding:0 16px 48px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (min-width:820px){.lay{grid-template-columns:240px 1fr;gap:28px}.tiles{grid-template-columns:1fr;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);align-self:start}}
+.tile{display:flex;gap:10px;align-items:center;text-align:left;padding:10px;border-radius:14px;border:1.5px solid var(--bd);background:var(--card);cursor:pointer;transition:border-color .2s,background .2s,transform .15s}
+.tile:active{transform:scale(.98)}
+.tile.on{border-color:var(--a);background:color-mix(in srgb,var(--a) 11%,var(--card))}
+.rw{position:relative;width:46px;height:46px;flex:none}
+.rw svg{width:100%;height:100%;transform:rotate(-90deg)}
+.rb,.rf{fill:none;stroke-width:4}
+.rb{stroke:var(--bd)}
+.rf{stroke:var(--a);stroke-linecap:round;transition:stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1)}
+.tp{position:absolute;inset:0;display:grid;place-items:center;font-size:11px;font-weight:600}
+.tn{display:block;font-weight:600;line-height:1.25}
+.tc{display:block;font-size:12px;color:var(--mu)}
+.ctl{margin-bottom:12px}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--bd);border-radius:99px;padding:3px}
+.seg button{border:0;background:none;padding:5px 13px;border-radius:99px;font-size:13px;color:var(--mu);cursor:pointer}
+.seg .on{background:var(--ac);color:var(--ck)}
+.sec.in{animation:in .35s ease both}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}
+.sec h2{font-size:clamp(20px,3.4vw,27px);font-weight:700;line-height:1.2;letter-spacing:-.01em;margin:0 0 4px}
+.meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--mu);font-size:13px}
+.next{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:14px 0;padding:12px 14px;border-radius:12px;background:var(--a);color:var(--ck)}
+.nl,.nm{display:block;font-size:12px;opacity:.85}
+.nt{display:block;font-weight:600}
+.next button{border:0;border-radius:8px;padding:7px 12px;font-weight:600;cursor:pointer;background:var(--ck);color:var(--tx);white-space:nowrap}
+.mod{background:var(--card);border:1px solid var(--bd);border-radius:12px;margin:10px 0;overflow:hidden}
+.mh{width:100%;display:flex;align-items:center;gap:10px;padding:12px 14px;background:none;border:0;text-align:left;cursor:pointer}
+.mt{font-weight:600;flex:1}
+.mhr{font-size:12px;color:var(--mu)}
+.mc{font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;background:color-mix(in srgb,var(--a) 16%,transparent)}
+.mod.full .mc{background:var(--a);color:var(--ck)}
+.chev{width:8px;height:8px;border-right:2px solid var(--mu);border-bottom:2px solid var(--mu);transform:rotate(45deg);transition:transform .25s;margin:0 4px 3px}
+.open .chev{transform:rotate(225deg)}
+.mbar{height:3px;background:var(--bd)}
+.mbar i{display:block;height:100%;width:0;background:var(--a);transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.mb{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .3s ease,visibility 0s .3s}
+.open>.mb{grid-template-rows:1fr;visibility:visible;transition-delay:0s}
+.mi{overflow:hidden;min-height:0;padding:0 14px}
+ul{list-style:none;margin:0;padding:0}
+.row{border-top:1px dashed var(--bd)}
+.row label{display:flex;gap:12px;align-items:flex-start;padding:9px 0;cursor:pointer;position:relative}
+.row input{position:absolute;opacity:0;left:0;top:10px;width:20px;height:20px;margin:0;cursor:pointer}
+.bx{flex:none;width:20px;height:20px;border-radius:6px;border:2px solid var(--mu);margin-top:1px;position:relative}
+.bx::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;border:solid var(--ck);border-width:0 2.5px 2.5px 0;transform:rotate(45deg) scale(0)}
+input:checked+.bx{background:var(--a);border-color:var(--a)}
+input:checked+.bx::after{transform:rotate(45deg) scale(1)}
+input:focus-visible+.bx{outline:2px solid var(--a);outline-offset:2px}
+.ready .bx{transition:background .15s,border-color .15s}
+.ready .bx::after{transition:transform .22s cubic-bezier(.3,1.6,.5,1)}
+.tx{flex:1;transition:color .2s}
+.done .tx{color:var(--mu);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--mu) 50%,transparent)}
+.rem .row.done{display:none}
+.all{border:0;background:none;color:var(--mu);font-size:13px;text-decoration:underline;cursor:pointer;padding:6px 0 10px}
+.rs{margin-top:28px;text-align:center}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+body::before{content:"";position:fixed;inset:-140px;z-index:-1;pointer-events:none;background-image:linear-gradient(var(--gr2) 1px,transparent 1px),linear-gradient(90deg,var(--gr2) 1px,transparent 1px),linear-gradient(var(--gr) 1px,transparent 1px),linear-gradient(90deg,var(--gr) 1px,transparent 1px);background-size:140px 140px,140px 140px,28px 28px,28px 28px;animation:drift 24s linear infinite}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 0%,transparent 35%,var(--bg) 100%)}
+@keyframes drift{to{transform:translate(140px,140px)}}
+@keyframes sh{to{background-position:-200% 0}}
+@keyframes fl{from{background:color-mix(in srgb,var(--a) 38%,transparent)}to{background:transparent}}
+@keyframes bump{50%{transform:scale(1.4)}}
+@keyframes glow{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--a) 75%,transparent)}100%{box-shadow:0 0 0 20px transparent}}
+#cf{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+.row.flash{animation:fl .9s ease-out}
+.mc.bump{animation:bump .35s cubic-bezier(.3,1.8,.5,1)}
+.mod.glow{animation:glow 1.2s ease-out}
+.tile.pulse{animation:glow 1.3s ease-out 2}
+.next.swap{animation:in .35s ease both}
+.next{box-shadow:0 0 30px color-mix(in srgb,var(--a) 35%,transparent)}
+.tile.on{box-shadow:0 0 0 1px var(--a),0 0 24px color-mix(in srgb,var(--a) 28%,transparent)}
+.tile:hover{transform:translateY(-2px)}
+.mh:hover{background:color-mix(in srgb,var(--a) 8%,transparent)}
+.rf{filter:drop-shadow(0 0 3px var(--a))}
+.fn{text-shadow:0 0 28px color-mix(in srgb,var(--ac) 45%,transparent)}
+.fat.hot .fn{text-shadow:0 0 28px color-mix(in srgb,var(--hot) 55%,transparent)}
+.mod{box-shadow:0 0 0 1px color-mix(in srgb,var(--ac) 6%,transparent)}
+</style>
+</head>
+<body>
+<header class="w top"><div><h1>Semester 1 revision</h1><div class="mu" id="ot"></div><div class="bar"><i id="ob"></i></div></div>
+<div class="fat" id="fat"><div class="fn" id="fn">?</div><div class="fl" id="fl"></div><input type="date" class="dt" id="fd" aria-label="FAT date"></div></header>
+<div class="w lay"><nav class="tiles" id="tiles" aria-label="Subjects"></nav>
+<main><div class="ctl"><div class="seg"><button data-act="f0" class="on">All topics</button><button data-act="f1">Remaining only</button></div></div><div id="app"></div><div class="rs"><button class="all" data-act="rs">Reset all progress</button></div></main></div>
+<script>
+const M=(t,h,s)=>({t,h,i:s.split('|')});
+const D=[
+{c:'BAMAT101',s:'Multivariable Calculus and DEs',n:'Multivariable Calculus and Differential Equations',l:'L3 T0 P2 · 4 credits',m:[
+M('Module 1 – Functions of Several Variables','8 h','Functions of two variables|Partial derivatives|Total differential|Jacobian and its properties|Taylor’s expansion for two variables|Maxima and minima|Constrained maxima and minima – Lagrange’s multiplier method|Applications: Jacobian matrix for feature sensitivity analysis; constrained optimization in cloud computing'),
+M('Module 2 – Multiple Integrals','9 h','Evaluation of double integrals|Change of order of integration|Change of variables: Cartesian to polar|Evaluation of triple integrals|Change of variables: Cartesian to cylindrical and spherical|Applications: change of variables for object recognition; multiple integrals in image analysis (density, moments)'),
+M('Module 3 – Vector Differentiation and Integration','10 h','Scalar and vector valued functions|Gradient|Directional derivative|Divergence|Curl|Scalar and vector potentials|Line, surface and volume integrals|Green’s theorem|Stokes’ theorem|Gauss divergence theorem|Verification and evaluation of vector integrals using the theorems|Applications: vector derivatives for EM simulation in CAD; vector integrals in antenna design'),
+M('Module 4 – Ordinary Differential Equations','8 h','Linear second-order ODEs with constant coefficients|Method of undetermined coefficients|Method of variation of parameters|Cauchy-Euler equations|Cauchy-Legendre equations|Applications of linear second-order ODEs|Applications: steady-state response in DSP; LCR circuit simulation'),
+M('Module 5 – Partial Differential Equations','8 h','Formation of PDE|First order PDE: F(p,q)=0|First order PDE: F(z,p,q)=0|First order PDE: F(x,p)=G(y,q)|Clairaut’s form|Lagrange’s equation: Pp+Qq=R|Linear first-order PDE by separation of variables|Applications: Lagrange’s equation for flow modelling; separation of variables for CPU temperature'),
+M('Module 6 – Contemporary Topics','2 h','Contemporary topics (no fixed content listed)'),
+M('Lab – MATLAB experiments (indicative)','30 h','Introduction to calculus through MATLAB – symbolic computations|Plotting and visualizing curves and surfaces|Maxima and minima of functions of several variables|Lagrange multiplier optimization method|Volume under a surface by double integral|Evaluating triple integrals|Demonstration of gradient, divergence and curl|Evaluating line integrals in vectors|Solution of linear differential equations|Solution of partial differential equations')]},
+{c:'BAPHY107',s:'Semiconductor Physics',n:'Physics of Semiconductor Devices',l:'L3 T0 P2 · 4 credits',m:[
+M('Module 1 – Basics of Quantum Mechanics','8 h','Planck’s idea of quantization|Planck’s radiation formula|de Broglie hypothesis and matter waves|Heisenberg uncertainty principle|Schrödinger wave equation: time dependent and independent forms|Particle in a 1-D box|Tunnelling effect'),
+M('Module 2 – Semiconductor Fundamentals','8 h','Classification of materials|E-k diagram|Formation of energy bands|Direct and indirect bandgap semiconductors|Concept of hole|Effective mass|Flat energy band diagram|Concept of Fermi level|Energy band diagrams of metal, insulator and semiconductor'),
+M('Module 3 – Carrier Transport Phenomena','8 h','Equilibrium charge carrier concentration|Intrinsic and extrinsic semiconductors|Carrier mobility|Drift and diffusion of carriers|Einstein relation|Generation, recombination and injection of carriers|Metal-semiconductor contacts: Ohmic and Schottky'),
+M('Module 4 – Junction Diodes','8 h','PN junction: equilibrium and biased|Contact potential and space charge phenomena|Electrostatics of the junction|Current-voltage relationship|Zener diode|Schottky diode|LED and photodiode'),
+M('Module 5 – Transistors','11 h','Bipolar Junction Transistor (BJT)|Input and output characteristics (common emitter)|Amplification factor|Field effect transistor (FET)|MOSFET structure|MOSFET current-voltage characteristics|Design of MOSFET|Enhancement and depletion mode MOSFETs'),
+M('Module 6 – Contemporary Topics','2 h','Lectures by industry or research experts'),
+M('Lab – CHAMP mini projects (indicative)','30 h','Wave nature of electrons through diffraction|Fundamental constant of quantum physics from semiconductor junctions|Elemental analysis through photoelectron spectroscopy|Stellar composition via quantum simulation of hydrogen spectral lines|Uncertainty principle: wave packet simulation|Quantum tunneling in tunnel diodes (I-V analysis)|Schrödinger equation: superposition and state collapse simulation|Photodiode I-V under different light intensities|Zener diode as a voltage regulator|Solar cell based renewable energy circuits|BJT input and output characteristics|Switch and small signal amplifier using MOSFET|Carrier mobility via resistivity and Hall effect|Carrier type, mobility and concentration analysis|Electrical band gap determination')]},
+{c:'BAECE103',s:'Network Theory',n:'Network Theory',l:'L3 T1 P0 · 4 credits',m:[
+M('Module 1 – DC Circuit Analysis and Theorems','9 h','Basic circuit elements and sources|Ohm’s law|Kirchhoff’s laws|Series resistors and voltage division|Parallel resistors and current division|Wye-Delta transformations|Nodal analysis|Mesh analysis|Superposition theorem|Source transformation theorem|Thevenin’s theorem|Norton’s theorem|Maximum power transfer theorem|Reciprocity theorem'),
+M('Module 2 – Transient Analysis of First and Second-Order Circuits','9 h','Source-free RC circuit|Source-free RL circuit|Singularity functions|Step response of RC circuit|Step response of RL circuit|Source-free series RLC circuit|Source-free parallel RLC circuit|Step response of series RLC circuit|Step response of parallel RLC circuit|General second-order circuits'),
+M('Module 3 – Sinusoidal Steady State Analysis','9 h','Sinusoids|Phasors|Phasor relationships for circuit elements|Impedance and admittance|Kirchhoff’s laws in the frequency domain|Instantaneous and average power|Complex power|Nodal analysis (phasor)|Mesh analysis (phasor)|Superposition and source transformation (phasor)|Thevenin’s and Norton’s theorems (phasor)|Maximum average power transfer theorem'),
+M('Module 4 – Circuit Analysis in the S-domain','9 h','Circuit element models|Circuit analysis with and without initial conditions|Transfer functions|From Laplace to Fourier transform|Frequency domain analysis of linear circuits|Low pass filter|High pass filter|Band pass filter|Band stop filter'),
+M('Module 5 – Two-Port Networks and Network Graphs','7 h','Impedance (Z) parameters|Admittance (Y) parameters|Hybrid parameters|Transmission parameters|Relationships between parameters|Interconnection of networks|Incidence matrix|Tie-set matrix|Cut-set matrix'),
+M('Module 6 – Contemporary Issues','2 h','Contemporary issues (no fixed content listed)')]},
+{c:'BAEEE101',s:'Basic Engineering',n:'Basic Engineering',l:'L3 T0 P2 · 4 credits',m:[
+M('Module 1 – Electrical Engineering: Circuits and Power Conversion','12 h','Electric circuit components|Mesh current analysis|Node voltage analysis|Thevenin’s and superposition theorems|Single phase AC circuits: RL, RC, RLC|Power and energy calculations|Power factor|Basics of electrical safety and earthing|Electromechanical energy conversion|DC motor|Induction motor|BLDC motor|Single phase transformer|Power electronics and industrial electrical drives (qualitative)'),
+M('Module 2 – Electronics and Communication Systems','8 h','PN junction diode characteristics|Zener diode|BJT|MOSFET|Rectifiers and voltage regulators|Introduction to operational amplifiers|Electromagnetic spectrum|Elements of communication systems|Overview of cellular communication|Satellite communication and radar'),
+M('Module 3 – Engineering Graphics and CAD','9 h','Introduction to engineering drawing|BIS standards: lines, lettering, dimensioning|Orthographic projections: first and third angle|Projection of solids|Isometric and perspective projections|Freehand sketching|Residential floor plan as per IS SP7|Introduction to CAD'),
+M('Module 4 – Manufacturing, Energy Conversion and Mechanical Automation','9 h','Metal casting, forming, joining and cutting|CNC machining|Additive manufacturing (3D printing)|Thermal engineering systems and internal combustion engine|Power plants|Refrigeration and air conditioning|Fuel cells and sustainable energy|Four-bar mechanism and its inversions|Hexapod mechanisms|Mechanical components and motion control|Robotics and automation: pneumatic and hydraulic actuators'),
+M('Module 5 – Bio-Inspired Design in Engineering','5 h','Biomimicry: core principles|Case studies: Velcro, self-healing materials, termite mound ventilation|Case studies: insect-inspired drones, soft robotics, neural networks|Identify a problem and brainstorm a bio-inspired solution'),
+M('Module 6 – Contemporary Topics','2 h','Lectures by industry or research experts'),
+M('Lab – Experiments','30 h','Verification of KCL and KVL|Verification of mesh and nodal analysis|Time domain analysis of series RL circuit|Power and power factor in single phase RL circuit (3-voltmeter method)|Speed control of PMDC motor with DC-DC buck converter|Measurement of earth resistance using Megger|Zener diode voltage regulator|Single-phase full-wave diode rectifier with resistive load|Light dimmer circuit using Darlington pair|2D profile with sketch tools and constraints (CAD)|Simple 3D solid model: extrude, revolve, cut, fillet, chamfer, shell|2D engineering drawings from 3D solid models')]}
+];
+D.forEach(c=>{c.m=c.m.filter(m=>!m.t.startsWith('Lab'))});
+const C=2*Math.PI*18,$=i=>document.getElementById(i),R={},MO={};
+let P={},cur=0,F='',SE=[],TI=[];
+const save=()=>{try{localStorage.setItem('rev-p',JSON.stringify(P))}catch(e){}};
+try{P=JSON.parse(localStorage.getItem('rev-p')||'{}');F=localStorage.getItem('rev-fat')||'';cur=+localStorage.getItem('rev-tab')||0}catch(e){}
+if(!(cur>=0&&cur<D.length))cur=0;
+const td=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+function build(){
+ $('tiles').innerHTML=D.map((c,ci)=>'<button class="tile" data-s="'+ci+'" data-t="'+ci+'"><span class="rw"><svg viewBox="0 0 44 44"><circle class="rb" cx="22" cy="22" r="18"/><circle class="rf" cx="22" cy="22" r="18" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'"/></svg><b class="tp"></b></span><span><span class="tn">'+c.s+'</span><span class="tc"></span></span></button>').join('');
+ $('app').innerHTML=D.map((c,ci)=>{
+  const [a,b]=c.l.split(' · '),fi=c.m.findIndex((m,mi)=>m.i.some((_,ii)=>!P[ci+'.'+mi+'.'+ii]));
+  return '<section class="sec" data-s="'+ci+'" hidden><h2>'+c.n+'</h2><div class="meta"><span>'+c.c+'</span><span>'+a+'</span><span>'+b+'</span></div><div class="next"></div>'+c.m.map((m,mi)=>{
+   const k=ci+'.'+mi,op=mi==Math.max(fi,0);
+   return '<div class="mod'+(op?' open':'')+'" data-m="'+k+'"><button class="mh" data-act="tg" aria-expanded="'+op+'"><span class="mt">'+m.t+'</span><span class="mhr">'+m.h+'</span><span class="mc"></span><i class="chev"></i></button><div class="mbar"><i></i></div><div class="mb"><div class="mi"><ul>'+m.i.map((s,ii)=>'<li class="row" data-k="'+k+'.'+ii+'"><label><input type="checkbox" data-k="'+k+'.'+ii+'"><span class="bx"></span><span class="tx">'+s+'</span></label></li>').join('')+'</ul><button class="all" data-act="all"></button></div></div></div>'}).join('')+'</section>'}).join('');
+ document.querySelectorAll('.row').forEach(li=>R[li.dataset.k]=li);
+ document.querySelectorAll('.mod').forEach(el=>MO[el.dataset.m]=el);
+ SE=Array.from(document.querySelectorAll('.sec'));TI=Array.from(document.querySelectorAll('.tile'));
+}
+function refresh(){
+ let T=0,N=0;
+ D.forEach((c,ci)=>{let t=0,d=0,nx=null;
+  c.m.forEach((m,mi)=>{const el=MO[ci+'.'+mi];let n=0;
+   m.i.forEach((s,ii)=>{const k=ci+'.'+mi+'.'+ii,on=!!P[k],li=R[k];li.classList.toggle('done',on);li.querySelector('input').checked=on;if(on)n++;else if(!nx)nx={k,s,m:m.t}});
+   t+=m.i.length;d+=n;
+   el.classList.toggle('full',n==m.i.length);
+   const mc=el.querySelector('.mc'),tx=n+'/'+m.i.length;if(mc.textContent!==tx){mc.textContent=tx;if(document.body.classList.contains('ready'))re(mc,'bump')}
+   el.querySelector('.mbar i').style.width=100*n/m.i.length+'%';
+   el.querySelector('.all').textContent=n==m.i.length?'Clear this module':'Mark module done'});
+  T+=t;N+=d;
+  const tl=TI[ci];
+  tl.querySelector('.rf').style.strokeDashoffset=C*(1-d/t);
+  tl.classList.toggle('full',d==t);tl.querySelector('.tp').textContent=Math.round(100*d/t)+'%';
+  tl.querySelector('.tc').textContent=d+' of '+t+' done';
+  setNext(SE[ci].querySelector('.next'),nx?nx.k:'x',nx?'<div><span class="nl">Next up</span><span class="nt">'+nx.s+'</span><span class="nm">'+nx.m+'</span></div><button data-act="nx" data-k="'+nx.k+'">Mark done</button>':'<div><span class="nt">Every topic here is covered.</span><span class="nm">Test yourself on past papers next.</span></div>')});
+ $('ot').textContent=N+' of '+T+' topics done, '+Math.round(100*N/T)+'%';
+ $('ob').style.width=100*N/T+'%';
+}
+function fat(){
+ $('fd').value=F;
+ const n=F?Math.round((new Date(F)-new Date(td()))/864e5):null;
+ cntUp(n);
+ $('fl').textContent=n===null?'Set your FAT date':n>1?'days to FAT':n==1?'day to FAT':n==0?'FAT is today':'FAT date has passed';
+ $('fat').classList.toggle('hot',n!==null&&n>=0&&n<=7);
+}
+function show(ci,anim){
+ cur=ci;try{localStorage.setItem('rev-tab',ci)}catch(e){}
+ SE.forEach((s,i)=>{s.hidden=i!=ci});
+ TI.forEach((t,i)=>{t.classList.toggle('on',i==ci);t.setAttribute('aria-pressed',i==ci)});
+ if(anim){const s=SE[ci];s.classList.remove('in');void s.offsetWidth;s.classList.add('in')}
+}
+document.addEventListener('change',e=>{const t=e.target;
+ if(t.id=='fd'){F=t.value;try{localStorage.setItem('rev-fat',F)}catch(x){}fat();return}
+ const k=t.dataset.k;if(!k||t.type!='checkbox')return;
+ done(k,t.checked,t.nextElementSibling)});
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;const a=b.dataset.act;
+ if(b.dataset.t!==undefined)show(+b.dataset.t,1);
+ else if(a=='tg'){const m=b.parentNode;m.classList.toggle('open');b.setAttribute('aria-expanded',m.classList.contains('open'))}
+ else if(a=='nx'){done(b.dataset.k,true,b)}
+ else if(a=='all'){const id=b.closest('.mod').dataset.m,[ci,mi]=id.split('.').map(Number),ms=D[ci].m[mi],all=ms.i.every((_,ii)=>P[id+'.'+ii]);
+  bulk(id,ci,mi,all)}
+ else if(a=='f0'||a=='f1'){$('app').classList.toggle('rem',a=='f1');document.querySelectorAll('.seg button').forEach(x=>x.classList.toggle('on',x==b))}
+ else if(a=='rs'){if(confirm('Clear all progress?')){P={};save();refresh()}}
+});
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const cv=document.createElement('canvas');cv.id='cf';document.body.appendChild(cv);
+const cx=cv.getContext('2d');let ps=[],raf=0,shown=0;
+function size(){const r=Math.min(devicePixelRatio||1,2);cv.width=innerWidth*r;cv.height=innerHeight*r;cx.setTransform(r,0,0,r,0,0)}
+size();addEventListener('resize',size);
+function burst(x,y,col,n,spread,power,ang){
+ if(RM)return;ang=ang===undefined?-Math.PI/2:ang;const cs=[col,'#ffffff',col,'#5aa0ff'];
+ for(let i=0;i<n;i++){const a=ang+(Math.random()-.5)*spread,v=power*(.5+Math.random());
+  ps.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,w:4+Math.random()*5,h:3+Math.random()*4,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cs[i%4],l:0,t:70+Math.random()*50})}
+ if(!raf)raf=requestAnimationFrame(step)}
+function step(){
+ cx.clearRect(0,0,innerWidth,innerHeight);ps=ps.filter(p=>p.l<p.t);
+ ps.forEach(p=>{p.l++;p.vy+=.25;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;cx.save();cx.globalAlpha=Math.min(1,(p.t-p.l)/25);cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-p.h/2,p.w,p.h);cx.restore()});
+ raf=ps.length?requestAnimationFrame(step):0}
+const acc=ci=>getComputedStyle(SE[ci]).getPropertyValue('--a').trim()||'#5aa0ff';
+const re=(el,c)=>{el.classList.remove(c);void el.offsetWidth;el.classList.add(c)};
+function celebrate(ci,mi,mw,sw){
+ const m=MO[ci+'.'+mi];
+ if(!mw&&m.classList.contains('full')){const r=m.querySelector('.mh').getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,acc(ci),70,Math.PI*1.6,10);re(m,'glow')}
+ if(!sw&&TI[ci].classList.contains('full')){re(TI[ci],'pulse');for(let i=0;i<6;i++)setTimeout(()=>burst(innerWidth*(i+.5)/6,-10,acc(ci),40,Math.PI,4,Math.PI/2),i*160)}}
+function done(k,v,src){
+ const [ci,mi]=k.split('.').map(Number),mw=MO[ci+'.'+mi].classList.contains('full'),sw=TI[ci].classList.contains('full');
+ const r=src?src.getBoundingClientRect():null;
+ if(v)P[k]=1;else delete P[k];save();refresh();
+ if(!v)return;
+ re(R[k],'flash');
+ if(r)burst(r.left+r.width/2,r.top+r.height/2,acc(ci),26,Math.PI*1.3,7);
+ celebrate(ci,mi,mw,sw)}
+function bulk(id,ci,mi,all){
+ const mw=MO[id].classList.contains('full'),sw=TI[ci].classList.contains('full');
+ D[ci].m[mi].i.forEach((_,ii)=>{const k=id+'.'+ii;if(all)delete P[k];else P[k]=1});save();refresh();
+ if(!all)celebrate(ci,mi,mw,sw)}
+function setNext(el,key,html){
+ if(el.dataset.k===key)return;const first=el.dataset.k===undefined;el.dataset.k=key;el.innerHTML=html;
+ if(!first)re(el,'swap')}
+function cntUp(n){
+ const el=$('fn');if(n===null||n<0){el.textContent=n===null?'?':'–';shown=0;return}
+ if(RM||n===shown){el.textContent=n;shown=n;return}
+ const a=shown,t0=performance.now();
+ (function f(t){const p=Math.min(1,(t-t0)/900),e=1-Math.pow(1-p,3);el.textContent=Math.round(a+(n-a)*e);if(p<1)requestAnimationFrame(f);else shown=n})(t0)}
+build();show(cur);void document.body.offsetWidth;refresh();fat();
+requestAnimationFrame(()=>requestAnimationFrame(()=>document.body.classList.add('ready')));
+</script>
+</body>
+</html>
